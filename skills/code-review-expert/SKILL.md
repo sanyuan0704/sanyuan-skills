@@ -96,12 +96,13 @@ Structure your review as follows:
 (none or list)
 
 ### P1 - High
-- **[file:line]** Brief title
+1. **[file:line]** Brief title
   - Description of issue
   - Suggested fix
 
 ### P2 - Medium
-...
+2. (continue numbering across sections)
+  - ...
 
 ### P3 - Low
 ...
