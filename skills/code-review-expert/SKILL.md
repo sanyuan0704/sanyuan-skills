@@ -77,17 +77,15 @@ Perform a structured review of the current git changes with focus on SOLID, arch
 ### 5) Code quality scan
 
 - Load `references/code-quality-checklist.md` for coverage.
+- **Dynamic Language Heuristics**: Identify the language paradigm and apply specific "expert" checks:
+  - **Memory Management**: Check for manual management risks (C/C++/Zig/Rust) vs. GC pressures/leaks (Java/JS/Python).
+  - **Type Safety**: Flag "type-cheating" (TypeScript `any`, Python `Any`, Go `interface{}`) or unsafe type casting.
+  - **Concurrency Models**: Look for race conditions specific to the model (Threads/Locks, Goroutines/Channels, or JS Event Loop).
+  - **Infrastructure/DSL**: If reviewing SQL, YAML, or Terraform, focus on injection, schema-locking, or resource-leakage.
 - Check for:
-  - **Error handling**: swallowed exceptions, overly broad catch, missing error handling, async errors
-  - **Performance**: N+1 queries, CPU-intensive ops in hot paths, missing cache, unbounded memory
-  - **Boundary conditions**: null/undefined handling, empty collections, numeric boundaries, off-by-one
-- Flag issues that may cause silent failures or production incidents.
-- **Language-Specific Heuristics**: beyond the checklist, scan for common anti-patterns in the detected languages:
-  - JavaScript/TypeScript: unawaited or floating promises (especially in loops), misuse of `this` binding, swallowed async errors.
-  - Python: mutable default arguments, brittle `__del__` side effects, `try/except: pass` without narrowing the exception type.
-  - Go: goroutine leaks (missing `WaitGroup`/context), not checking `err` immediately, unbuffered channel deadlocks, unchecked `Close`/`defer` ordering.
-  - C++/Rust: iterator invalidation or use-after-free patterns, unchecked `unsafe`/raw pointers, unnecessary cloning/copying in hot paths.
-  - Other languages: consider the common anti-patterns for that specific language.
+  - **Error handling**: swallowed exceptions, overly broad catch, missing error handling, async errors.
+  - **Performance**: N+1 queries, CPU-intensive ops in hot paths, missing cache, unbounded memory.
+  - **Boundary conditions**: null/undefined handling, empty collections, numeric boundaries, off-by-one.
 
 ### 6) Output format
 
