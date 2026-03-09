@@ -148,7 +148,7 @@ After presenting findings, ask user how to proceed:
 
 I found X issues (P0: _, P1: _, P2: _, P3: _).
 
-**How would you like to proceed?**
+**How would you like to proceed.**
 
 1. **Fix all** - I'll implement all suggested fixes
 2. **Fix P0/P1 only** - Address critical and high priority issues

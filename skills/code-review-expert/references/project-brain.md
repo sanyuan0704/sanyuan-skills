@@ -10,9 +10,9 @@
 ## Technical Stack & Versioning
 - **Language/Runtime**: TypeScript 5.4 on Node.js 20.x <!-- DEFAULT THAT CAN BE SWAPPED; suggested alternatives: Python 3.12, Go 1.22 -->
 - **Primary Libraries**:
-    - **Validation**: Zod — all inbound API/queue payloads must be parsed via schemas in `src/interface/validation`. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Joi, Yup; keep separation of validation layer -->
-    - **Database**: Prisma — repositories live in `src/infrastructure/prisma`. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: TypeORM, Drizzle; RULE: infrastructure layer must handle DB -->
-    - **HTTP**: Fastify — routes in `src/interface/http` call application services, never domain directly. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Express, NestJS -->
+    - **Validation**: Zod -- all inbound API/queue payloads must be parsed via schemas in `src/interface/validation`. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Joi, Yup; keep separation of validation layer -->
+    - **Database**: Prisma -- repositories live in `src/infrastructure/prisma`. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: TypeORM, Drizzle; RULE: infrastructure layer must handle DB -->
+    - **HTTP**: Fastify -- routes in `src/interface/http` call application services, never domain directly. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Express, NestJS -->
     - **State Management (frontends)**: Zustand for SPA dashboards. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Redux Toolkit, MobX -->
 - **Forbidden Libraries**: Moment.js (use date-fns), `any`-heavy utils, `request` package, deprecated `uuid/v1`. <!-- RULE THAT MUST STAY -->
 
@@ -22,7 +22,7 @@
 - **Soft Deletes**: Use `deleted_at TIMESTAMP NULL` columns; no hard deletes of user data. <!-- RULE THAT MUST STAY -->
 
 ## Error & Communication Standards
-- **Error Registry**: All domain/app errors extend `AppError` with fields `{ code, message, httpStatus, details? }`; codes use `DOMAIN_CONTEXT_ERROR` (e.g., `AUTH_INVALID_TOKEN`). <!-- RULE THAT MUST STAY -->
+- **Error Registry**: All domain/app errors extend `AppError` with fields `{ code, message, httpStatus, details. }`; codes use `DOMAIN_CONTEXT_ERROR` (e.g., `AUTH_INVALID_TOKEN`). <!-- RULE THAT MUST STAY -->
 - **Async Patterns**: Prefer `async/await`; wrap top-level handlers with `withErrorBoundary(handler)` to log and map errors to HTTP responses. <!-- RULE THAT MUST STAY -->
 - **Event Naming**: `Resource.Action.Status` with past-tense action (e.g., `Order.Created.Success`, `User.PasswordReset.Requested`); events are JSON, versioned via `meta.schemaVersion`. <!-- RULE THAT MUST STAY -->
 

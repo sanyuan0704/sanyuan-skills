@@ -23,7 +23,7 @@ Premium dark UI. Layered depth, glassmorphism, micro-animations. Linear/Raycast 
   --text-secondary: rgba(255,255,255,0.55);
   --text-tertiary: rgba(255,255,255,0.3);
 
-  /* Accent — CHOOSE a cohesive palette per topic, NOT blue-purple */
+  /* Accent -- CHOOSE a cohesive palette per topic, NOT blue-purple */
   --accent-1: /* primary accent */;
   --accent-2: /* secondary accent */;
   --accent-gradient: linear-gradient(135deg, var(--accent-1), var(--accent-2));
@@ -44,7 +44,7 @@ Premium dark UI. Layered depth, glassmorphism, micro-animations. Linear/Raycast 
 
 ### Accent Palette Examples
 
-Pick based on topic feel. Be creative — avoid the banned blue-purple.
+Pick based on topic feel. Be creative -- avoid the banned blue-purple.
 
 | Topic vibe | accent-1 | accent-2 |
 |------------|----------|----------|
@@ -57,7 +57,7 @@ Pick based on topic feel. Be creative — avoid the banned blue-purple.
 ## General Rules
 
 - `<meta charset="UTF-8">` + `<meta name="viewport">`
-- Use CSS custom properties — never hardcode colors
+- Use CSS custom properties -- never hardcode colors
 - Transitions: `cubic-bezier(0.4, 0, 0.2, 1)`
 - Animations subtle: pulse, progress transitions, hover lifts
 - Max content width: `720px` centered
@@ -68,17 +68,17 @@ Pick based on topic feel. Be creative — avoid the banned blue-purple.
 ## Template: Roadmap (`roadmap.html`)
 
 ```
-┌──────────────────────────────────────────┐
-│ Header: gradient title + metadata chips  │
-│          + circular SVG progress ring    │
-│                                          │
-│ Timeline (vertical, left connector line) │
-│  ├── Node (mastered)  [✓ green]          │
-│  ├── Node (in-progress) [pulsing]        │
-│  └── Node (not-started) [dimmed 0.45]    │
-│                                          │
-│ Footer: overall progress bar             │
-└──────────────────────────────────────────┘
++------------------------------------------+
+| Header: gradient title + metadata chips  |
+|          + circular SVG progress ring    |
+|                                          |
+| Timeline (vertical, left connector line) |
+|  |-- Node (mastered)  [[OK] green]          |
+|  |-- Node (in-progress) [pulsing]        |
+|  \-- Node (not-started) [dimmed 0.45]    |
+|                                          |
+| Footer: overall progress bar             |
+\------------------------------------------\
 ```
 
 Key elements:
@@ -91,16 +91,16 @@ Key elements:
 ## Template: Summary (`summary.html`)
 
 ```
-┌──────────────────────────────────────────┐
-│ Header: gradient title + completion badge│
-│                                          │
-│ Stats Grid (2x2): mastered count,        │
-│   questions, mastery rate, duration      │
-│                                          │
-│ Concept Breakdown: horizontal bar chart  │
-│ Key Insights: bullet list                │
-│ Next Steps: recommendations              │
-└──────────────────────────────────────────┘
++------------------------------------------+
+| Header: gradient title + completion badge|
+|                                          |
+| Stats Grid (2x2): mastered count,        |
+|   questions, mastery rate, duration      |
+|                                          |
+| Concept Breakdown: horizontal bar chart  |
+| Key Insights: bullet list                |
+| Next Steps: recommendations              |
+\------------------------------------------\
 ```
 
 ## Template: Visual Explanation (`visuals/*.html`)
