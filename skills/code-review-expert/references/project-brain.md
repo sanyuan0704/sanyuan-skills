@@ -1,38 +1,37 @@
 # Project Brain: Global Architecture Rules
 
-> **Note to User**: Customize this file for each project. It defines the "non-negotiables" that the Code Review Expert must enforce regardless of general best practices.
+> **Note to User**: Customize this file for each project. It defines the "non-negotiables" that the Code Review Expert must enforce regardless of general best practices. All sections are filled out with concrete, enforceable defaults, making this drop-in usable for new users and reducing AI hallucinations.
 
 ## Core Architecture Pattern
-- **Pattern**: [e.g., Hexagonal, Layered (MVC), Microservices, Event-Driven]
-- **Constraint**: "Business logic must remain in `src/domain` and have zero dependencies on frameworks (e.g., Express, NestJS)."
-- **Dependency Direction**: "Outer layers (Infrastructure) can depend on Inner layers (Domain), but never the reverse."
+- **Pattern**: Hexagonal (Ports & Adapters) <!-- DEFAULT THAT CAN BE SWAPPED; suggested alternatives: Layered (MVC), Event-Driven -->
+- **Constraint**: Business logic stays in `src/domain` with zero framework imports; frameworks live in `src/infrastructure` or `src/interface`. <!-- RULE THAT MUST STAY -->
+- **Dependency Direction**: Outer layers may depend on inner layers; inner layers must not import outer code. <!-- RULE THAT MUST STAY -->
 
 ## Technical Stack & Versioning
-- **Language/Runtime**: [e.g., TypeScript 5.4 / Node.js 20.x]
+- **Language/Runtime**: TypeScript 5.4 on Node.js 20.x <!-- DEFAULT THAT CAN BE SWAPPED; suggested alternatives: Python 3.12, Go 1.22 -->
 - **Primary Libraries**:
-    - **Validation**: [e.g., Zod] - "All API inputs must be parsed via Zod schemas."
-    -**Database**: [e.g., Prisma / Drizzle / TypeORM]
-    **State Management**: [e.g., Redux Toolkit / Zustand]
-- **Forbidden Libraries**: [e.g., "Do not use Moment.js; use date-fns."]
+    - **Validation**: Zod — all inbound API/queue payloads must be parsed via schemas in `src/interface/validation`. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Joi, Yup; keep separation of validation layer -->
+    - **Database**: Prisma — repositories live in `src/infrastructure/prisma`. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: TypeORM, Drizzle; RULE: infrastructure layer must handle DB -->
+    - **HTTP**: Fastify — routes in `src/interface/http` call application services, never domain directly. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Express, NestJS -->
+    - **State Management (frontends)**: Zustand for SPA dashboards. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Redux Toolkit, MobX -->
+- **Forbidden Libraries**: Moment.js (use date-fns), `any`-heavy utils, `request` package, deprecated `uuid/v1`. <!-- RULE THAT MUST STAY -->
 
 ## Data & Persistence Laws
-- **Ownership**: "Services must never access another service's database directly. Use API/Events."
-
-- **Migrations**: "Schema changes must always be backward compatible for at least one release."
-
-- **Soft Deletes**: "We use `deleted_at` timestamps; never perform hard `DELETE` operations on user data."
+- **Ownership**: Services never cross-read databases; communicate via HTTP/async events only. <!-- RULE THAT MUST STAY -->
+- **Migrations**: Must be backward compatible for one release; include down migrations and rollout notes. <!-- RULE THAT MUST STAY -->
+- **Soft Deletes**: Use `deleted_at TIMESTAMP NULL` columns; no hard deletes of user data. <!-- RULE THAT MUST STAY -->
 
 ## Error & Communication Standards
-- **Error Registry**: "All custom errors must extend `AppError` and include a unique `errorCode`."
-- **Async Patterns**: "Prefer `async/await` over `.then()`. All top-level async calls must be wrapped in a specific Error Boundary."
-- **Event Naming**: "Events must follow the `Resource.Action.Status` pattern (e.g., `Order.Created.Success`)."
+- **Error Registry**: All domain/app errors extend `AppError` with fields `{ code, message, httpStatus, details? }`; codes use `DOMAIN_CONTEXT_ERROR` (e.g., `AUTH_INVALID_TOKEN`). <!-- RULE THAT MUST STAY -->
+- **Async Patterns**: Prefer `async/await`; wrap top-level handlers with `withErrorBoundary(handler)` to log and map errors to HTTP responses. <!-- RULE THAT MUST STAY -->
+- **Event Naming**: `Resource.Action.Status` with past-tense action (e.g., `Order.Created.Success`, `User.PasswordReset.Requested`); events are JSON, versioned via `meta.schemaVersion`. <!-- RULE THAT MUST STAY -->
 
 ## Testing Philosophy
-- **Standard**: [e.g., TDD / Behavioral]
-- **Coverage**: "Maintain 80% line coverage. Critical paths (Auth/Payments) require 100%."
-- **Mocking**: "Only mock external third-party APIs. Databases should be tested via test-containers or memory-db."
+- **Standard**: TDD on services, behavioral tests on routes/handlers. <!-- DEFAULT THAT CAN BE SWAPPED; alternatives: Behavioral-only, BDD -->
+- **Coverage**: >=80% line coverage overall; 100% on auth/payments modules. <!-- DEFAULT THAT CAN BE SWAPPED; can adjust percentages for smaller projects -->
+- **Mocking**: Only mock third-party APIs; database tests run on testcontainers-based Postgres. <!-- RULE THAT MUST STAY for consistency -->
 
 ## The "Wall of Shame" (Project Anti-Patterns)
-- "No 'God Objects' allowed in `src/utils`."
-- "Avoid any type at all costs; use `unknown` if a type is truly dynamic."
-- "Do not use `console.log`; use the internal `Logger` service."
+- No "God Objects" in `src/utils`. <!-- RULE THAT MUST STAY -->
+- Avoid `any`; prefer `unknown` + narrowing. <!-- RULE THAT MUST STAY -->
+- Do not use `console.log`; use `Logger` with structured fields. <!-- RULE THAT MUST STAY -->
