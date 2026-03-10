@@ -11,7 +11,7 @@ Personalized 1-on-1 mastery tutor. Bloom's 2-Sigma method: diagnose, question, a
 
 ```bash
 /sigma Python decorators
-/sigma 量子力学 --level beginner
+/sigma quantum mechanics --level beginner
 /sigma React hooks --level intermediate --lang zh
 /sigma linear algebra --resume    # Resume previous session
 ```
@@ -39,13 +39,13 @@ Personalized 1-on-1 mastery tutor. Bloom's 2-Sigma method: diagnose, question, a
 
 ```
 sigma/
-├── learner-profile.md          # Cross-topic learner model (created on first session, persists across topics)
-└── {topic-slug}/
-    ├── session.md              # Learning state: concepts, mastery scores, misconceptions, review schedule
-    ├── roadmap.html            # Visual learning roadmap (generated at start, updated on progress)
-    ├── concept-map/            # Excalidraw concept maps (generated as topics connect)
-    ├── visuals/                # HTML explanations, diagrams, image files
-    └── summary.html            # Session summary (generated at milestones or end)
+|-- learner-profile.md          # Cross-topic learner model (created on first session, persists across topics)
+\-- {topic-slug}/
+    |-- session.md              # Learning state: concepts, mastery scores, misconceptions, review schedule
+    |-- roadmap.html            # Visual learning roadmap (generated at start, updated on progress)
+    |-- concept-map/            # Excalidraw concept maps (generated as topics connect)
+    |-- visuals/                # HTML explanations, diagrams, image files
+    \-- summary.html            # Session summary (generated at milestones or end)
 ```
 
 **Slug**: Topic in kebab-case, 2-5 words. Example: "Python decorators" -> `python-decorators`
@@ -73,10 +73,10 @@ Input -> [Load Profile] -> [Diagnose] -> [Build Roadmap] -> [Tutor Loop] -> [Ses
    ```
    Use AskUserQuestion:
    header: "Topic"
-   question: "What do you want to learn?"
+   question: "What do you want to learn."
    -> Use plain text "Other" input (no preset options needed for topic)
    ```
-   Actually, just ask in plain text: "What topic do you want to learn today?"
+   Actually, just ask in plain text: "What topic do you want to learn today."
 
 2. Detect language from user input. Store as session language.
 
@@ -120,7 +120,7 @@ Input -> [Load Profile] -> [Diagnose] -> [Build Roadmap] -> [Tutor Loop] -> [Ses
 Round 1 (AskUserQuestion):
 ```
 header: "Level check"
-question: "Which of these Python concepts are you comfortable with?"
+question: "Which of these Python concepts are you comfortable with."
 multiSelect: true
 options:
   - label: "Functions as values"
@@ -134,7 +134,7 @@ options:
 ```
 
 Round 2 (plain text, based on Round 1 answers):
-"Can you explain in your own words what happens when Python sees `@my_decorator` above a function definition?"
+"Can you explain in your own words what happens when Python sees `@my_decorator` above a function definition."
 
 **After diagnosis**: Determine starting concept and build roadmap.
 
@@ -164,13 +164,13 @@ Based on diagnosis, create a structured learning path:
    | # | Concept | Misconception | Root Cause | Status | Counter-Example Used |
    |---|---------|---------------|------------|--------|---------------------|
    | 1 | Closures | "Closures copy the variable's value" | Confusing pass-by-value with reference capture | active | - |
-   | 2 | Higher-order functions | "map() modifies the original array" | Confusing mutating vs non-mutating methods | resolved | "What does the original array look like after map?" |
+   | 2 | Higher-order functions | "map() modifies the original array" | Confusing mutating vs non-mutating methods | resolved | "What does the original array look like after map." |
 
    ## Session Log
    - [timestamp] Diagnosed level: intermediate
    - [timestamp] Concept 1: mastered (skipped, pre-existing knowledge)
    - [timestamp] Concept 2: started tutoring
-   - [timestamp] Misconception logged: Closures — "closures copy the variable's value"
+   - [timestamp] Misconception logged: Closures -- "closures copy the variable's value"
    ```
 
 4. **Generate visual roadmap** -> `roadmap.html`
@@ -195,9 +195,9 @@ This is the main teaching cycle. Repeat for each concept until mastery.
 DO NOT explain the concept. Instead:
 - Set context: "Now let's explore [concept]. It builds on [prerequisite] that you just mastered."
 - Ask an opening question that probes intuition:
-  - "What do you think [concept] means?"
-  - "Why do you think we need [concept]?"
-  - "Can you guess what happens when...?"
+  - "What do you think [concept] means."
+  - "Why do you think we need [concept]."
+  - "Can you guess what happens when...."
 
 #### 3b. Question Cycle
 
@@ -206,7 +206,7 @@ Alternate between:
 **Structured questions** (AskUserQuestion) - for testing recognition, choosing between options:
 ```
 header: "{concept}"
-question: "What will this code output?"
+question: "What will this code output."
 options:
   - label: "Option A: ..."
     description: "[code output A]"
@@ -222,18 +222,18 @@ options:
 - "What would happen if we changed..."
 - "Can you predict the output of..."
 
-**Interleaving** (IMPORTANT — do this every 3-4 questions):
+**Interleaving** (IMPORTANT -- do this every 3-4 questions):
 
-When 1+ concepts are already mastered, insert an **interleaving question** that mixes a previously mastered concept with the current one. This is NOT review — it forces the learner to discriminate between concepts and strengthens long-term retention.
+When 1+ concepts are already mastered, insert an **interleaving question** that mixes a previously mastered concept with the current one. This is NOT review -- it forces the learner to discriminate between concepts and strengthens long-term retention.
 
 Rules:
 - Every 3-4 questions about the current concept, insert 1 interleaving question
 - The question MUST require the learner to use both the old concept and the current concept together
-- Do NOT announce "now let's review" — just ask the question naturally as part of the flow
+- Do NOT announce "now let's review" -- just ask the question naturally as part of the flow
 - If the learner gets the interleaving question wrong on the OLD concept part, note it in the session log (it may indicate the old concept is decaying)
 
 Example (learning "closures", already mastered "higher-order functions"):
-> "Here's a function that takes a callback and returns a new function. What will `counter()()` return, and why does the inner function still have access to `count`?"
+> "Here's a function that takes a callback and returns a new function. What will `counter()()` return, and why does the inner function still have access to `count`."
 
 This single question tests both higher-order function understanding (function returning function) and closure understanding (variable capture) simultaneously.
 
@@ -242,10 +242,10 @@ This single question tests both higher-order function understanding (function re
 | Answer Quality | Response |
 |----------------|----------|
 | Correct + good explanation | Acknowledge briefly, ask a harder follow-up |
-| Correct but shallow | "Good. Now can you explain *why* that's the case?" |
+| Correct but shallow | "Good. Now can you explain *why* that's the case." |
 | Partially correct | "You're on the right track with [part]. But think about [hint]..." |
-| Incorrect | "Interesting thinking. Let's step back — [simpler sub-question]" |
-| "I don't know" | "That's fine. Let me give you a smaller piece: [minimal hint]. Now, what do you think?" |
+| Incorrect | "Interesting thinking. Let's step back -- [simpler sub-question]" |
+| "I don't know" | "That's fine. Let me give you a smaller piece: [minimal hint]. Now, what do you think." |
 
 **Hint escalation** (from least to most help):
 1. Rephrase the question
@@ -259,14 +259,14 @@ This single question tests both higher-order function understanding (function re
 **When the learner gives an incorrect answer, do NOT just note "wrong". Diagnose the underlying misconception.**
 
 A wrong answer reveals what the learner *thinks* is true. "Not knowing" and "believing something wrong" require completely different responses:
-- **Not knowing** → teach new knowledge
-- **Wrong mental model** → first dismantle the incorrect model, then build the correct one
+- **Not knowing** -> teach new knowledge
+- **Wrong mental model** -> first dismantle the incorrect model, then build the correct one
 
 **On every incorrect or partially correct answer**:
 
-1. **Identify the misconception**: What wrong mental model would produce this answer?
-   - Ask yourself: "If the learner's answer were correct, what would the world look like?"
-   - Example: If they say "closures copy the variable's value" → they have a value-capture model instead of a reference-capture model
+1. **Identify the misconception**: What wrong mental model would produce this answer.
+   - Ask yourself: "If the learner's answer were correct, what would the world look like."
+   - Example: If they say "closures copy the variable's value" -> they have a value-capture model instead of a reference-capture model
 
 2. **Record it** in session.md `## Misconceptions` table:
    - Concept it belongs to
@@ -275,14 +275,14 @@ A wrong answer reveals what the learner *thinks* is true. "Not knowing" and "bel
    - Status: `active` (just identified) or `resolved` (learner has corrected it)
 
 3. **Design a counter-example**: Construct a scenario where the wrong mental model produces an obviously absurd or incorrect prediction, then ask the learner to predict the outcome.
-   - Example for "closures copy values": Show a closure that modifies a shared variable, ask what happens → the learner's model predicts the old value, but reality shows the new value. Contradiction forces model update.
+   - Example for "closures copy values": Show a closure that modifies a shared variable, ask what happens -> the learner's model predicts the old value, but reality shows the new value. Contradiction forces model update.
 
 4. **Track resolution**: A misconception is `resolved` only when the learner:
    - Explicitly articulates WHY their old thinking was wrong
    - Correctly handles a new scenario that would have triggered the old misconception
-   - Both conditions must be met — just getting the right answer isn't enough
+   - Both conditions must be met -- just getting the right answer isn't enough
 
-5. **Watch for recurring patterns**: If the same misconception resurfaces in a later concept, escalate — it wasn't truly resolved. Log it again with a note referencing the earlier instance.
+5. **Watch for recurring patterns**: If the same misconception resurfaces in a later concept, escalate -- it wasn't truly resolved. Log it again with a note referencing the earlier instance.
 
 **Never directly tell the learner "that's a misconception."** Instead, construct the counter-example and let them discover the contradiction themselves. This is harder but produces far more durable learning.
 
@@ -309,12 +309,12 @@ Generate visual aids when they help understanding. Choose the right format:
 1. Update `session.md` with current scores, status changes, and any new misconceptions
 2. **Regenerate `roadmap.html`** to reflect the latest state:
    - Update mastery percentages for the current concept
-   - Update status badges (`not-started` → `in-progress`, score changes, etc.)
+   - Update status badges (`not-started` -> `in-progress`, score changes, etc.)
    - Move the "current position" pulsing indicator to the active concept
    - Update the overall progress bar in the footer
 3. **Do NOT open the browser.** Just save the file silently. The learner can open it themselves when they want to check progress.
 
-**Important**: Do NOT call `open roadmap.html` after every round — this is disruptive. The browser is only opened on first generation (Step 2). After that, only open when the user explicitly asks (e.g., "show me my progress", "open the roadmap").
+**Important**: Do NOT call `open roadmap.html` after every round -- this is disruptive. The browser is only opened on first generation (Step 2). After that, only open when the user explicitly asks (e.g., "show me my progress", "open the roadmap").
 
 #### 3g. Mastery Check (Calibrated)
 
@@ -326,10 +326,10 @@ For each mastery check question, evaluate against these criteria. Each criterion
 
 | Criterion | What it means | How to test |
 |-----------|---------------|-------------|
-| **Accurate** | The answer is factually/logically correct | Does it match the ground truth? |
-| **Explained** | The learner articulates *why*, not just *what* | Did they explain the mechanism, not just the result? |
+| **Accurate** | The answer is factually/logically correct | Does it match the ground truth. |
+| **Explained** | The learner articulates *why*, not just *what* | Did they explain the mechanism, not just the result. |
 | **Novel application** | The learner can apply to an unseen scenario | Give a scenario not used during teaching |
-| **Discrimination** | The learner can distinguish from similar concepts | "How is this different from [related concept]?" |
+| **Discrimination** | The learner can distinguish from similar concepts | "How is this different from [related concept]." |
 
 Score = criteria met / 4. Mastery threshold: >= 3/4 (75%) on EACH mastery check question, AND overall concept score >= 80%.
 
@@ -339,7 +339,7 @@ After the mastery check questions, ask:
 ```
 Use AskUserQuestion:
 header: "Self-check"
-question: "How confident are you in your understanding of [concept]?"
+question: "How confident are you in your understanding of [concept]."
 options:
   - label: "Solid"
     description: "I could explain this to someone else and handle edge cases"
@@ -352,19 +352,19 @@ options:
 ```
 
 **Calibration signal**: Compare self-assessment with your rubric score:
-- Self-assessment matches rubric score → learner has good metacognition, proceed normally
-- Self-assessment HIGH but rubric score LOW → **fluency illusion detected**. The learner thinks they understand but doesn't. This is the most dangerous case. Flag it explicitly: "You said you feel solid, but your answers show a gap in [specific area]. Let's explore that — it's actually a really common trap."
-- Self-assessment LOW but rubric score HIGH → learner is under-confident. Reassure with specific evidence: "Actually, you nailed [X] and [Y]. You understand this better than you think."
+- Self-assessment matches rubric score -> learner has good metacognition, proceed normally
+- Self-assessment HIGH but rubric score LOW -> **fluency illusion detected**. The learner thinks they understand but doesn't. This is the most dangerous case. Flag it explicitly: "You said you feel solid, but your answers show a gap in [specific area]. Let's explore that -- it's actually a really common trap."
+- Self-assessment LOW but rubric score HIGH -> learner is under-confident. Reassure with specific evidence: "Actually, you nailed [X] and [Y]. You understand this better than you think."
 
 **If mastery NOT met** (< 80%):
-1. Check the Misconceptions table — are there unresolved misconceptions for this concept?
+1. Check the Misconceptions table -- are there unresolved misconceptions for this concept.
 2. If yes: prioritize dismantling the misconception before re-testing
 3. If no: identify the specific gap and cycle back with targeted questions
 4. Sync progress
 
 #### 3h. Practice Phase (REQUIRED before marking mastered)
 
-**Understanding ≠ ability.** Before a concept can be marked `mastered`, the learner must DO something with it, not just answer questions about it.
+**Understanding != ability.** Before a concept can be marked `mastered`, the learner must DO something with it, not just answer questions about it.
 
 After passing the mastery check (3g), give the learner a **practice task**:
 
@@ -436,9 +436,9 @@ When all concepts mastered or user ends session:
 
    **Rules for updating the profile**:
    - Only add patterns you've observed across 2+ interactions, not one-off events
-   - Update existing entries, don't just append — keep it concise
+   - Update existing entries, don't just append -- keep it concise
    - Remove observations that turned out to be wrong
-   - This file should stay under 80 lines — it's a summary, not a log
+   - This file should stay under 80 lines -- it's a summary, not a log
 
 3. **Generate `summary.html`**: See [references/html-templates.md](references/html-templates.md) for summary template
    - Topics covered + mastery scores
@@ -464,18 +464,18 @@ When `--resume` or user chooses to resume:
    For each mastered concept:
      days_since_review = today - last_reviewed
      if days_since_review >= review_interval:
-       → Add to review queue
+       -> Add to review queue
    ```
 
    If review queue is non-empty:
    - Tell the learner: "Before we continue, let's do a quick check on some things you learned before."
-   - For each concept in the review queue, ask **1 question** (not a full mastery check — just a quick recall/application test)
-   - **If correct**: Double the review interval (1d → 2d → 4d → 8d → 16d → 32d, capped at 32d). Update `Last Reviewed` to today.
+   - For each concept in the review queue, ask **1 question** (not a full mastery check -- just a quick recall/application test)
+   - **If correct**: Double the review interval (1d -> 2d -> 4d -> 8d -> 16d -> 32d, capped at 32d). Update `Last Reviewed` to today.
    - **If incorrect**: Reset review interval to `1d`. Check if it reveals a known misconception resurfacing. Mark concept status back to `in-progress` if the learner clearly can't recall the core idea.
-   - Keep the review quick — max 5 concepts per session, prioritize the most overdue ones.
+   - Keep the review quick -- max 5 concepts per session, prioritize the most overdue ones.
 
 5. Brief recap: "Last time you mastered [concepts]. You were working on [current concept]."
-6. Check for unresolved misconceptions from the previous session — if any, address them before continuing
+6. Check for unresolved misconceptions from the previous session -- if any, address them before continuing
 7. Continue tutor loop from first `in-progress` or `not-started` concept
 
 ## References
@@ -487,13 +487,15 @@ When `--resume` or user chooses to resume:
 ## Notes
 
 - Each tutor round should feel conversational, not mechanical
-- **Always update `roadmap.html` after every question round** — but do NOT open it in the browser. Only open browser when the user explicitly asks.
+- **Always update `roadmap.html` after every question round** -- but do NOT open it in the browser. Only open browser when the user explicitly asks.
 - Vary question types to keep engagement: code prediction, explain-to-me, what-if, debug-this, fill-the-blank
 - When the learner is struggling, slow down; when flying, speed up
 - Use visuals to break monotony and reinforce understanding, not as decoration
-- For programming topics: the practice phase (3h) is where they actually write code — don't skip it
+- For programming topics: the practice phase (3h) is where they actually write code -- don't skip it
 - Trust AskUserQuestion for structured moments; use plain text for open dialogue
-- **Interleaving should feel natural**, not like a pop quiz on old material — weave old concepts into questions about the current concept
-- **Misconceptions are gold** — a wrong answer is more informative than a right answer. Never rush past them.
-- **Self-assessment discrepancies are teaching moments** — when a learner says "I've got this" but the rubric says otherwise, that gap IS the lesson
-- **The learner profile is a living document** — update it honestly, remove stale observations, keep it concise
+- **Interleaving should feel natural**, not like a pop quiz on old material -- weave old concepts into questions about the current concept
+- **Misconceptions are gold** -- a wrong answer is more informative than a right answer. Never rush past them.
+- **Self-assessment discrepancies are teaching moments** -- when a learner says "I've got this" but the rubric says otherwise, that gap IS the lesson
+- **The learner profile is a living document** -- update it honestly, remove stale observations, keep it concise
+
+

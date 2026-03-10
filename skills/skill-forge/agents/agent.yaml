@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill Forge"
+  short_description: "Guided workflow to design high-quality skills with checklists and validation"
+  default_prompt: "When the user wants to create/build/refine/package a skill, guide them with the Skill Forge workflow: ask clarifying questions, apply the 12 techniques, ensure frontmatter/structure quality, and pause for confirmation before major steps."

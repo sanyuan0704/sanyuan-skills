@@ -105,10 +105,10 @@ if user.balance >= amount:  # Check-then-act
 ```
 
 ### Questions to Ask
-- "What happens if two requests hit this code simultaneously?"
-- "Is this operation atomic or can it be interrupted?"
-- "What shared state does this code access?"
-- "How does this behave under high concurrency?"
+- "What happens if two requests hit this code simultaneously."
+- "Is this operation atomic or can it be interrupted."
+- "What shared state does this code access."
+- "How does this behave under high concurrency."
 
 ## Data Integrity
 

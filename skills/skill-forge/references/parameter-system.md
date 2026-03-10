@@ -5,7 +5,7 @@
 Skills receive user input through the `$ARGUMENTS` variable. This includes everything the user types after the skill invocation.
 
 Example: `/my-skill article.md --style dark --quick`
-→ `$ARGUMENTS` = `article.md --style dark --quick`
+-> `$ARGUMENTS` = `article.md --style dark --quick`
 
 ## Designing Parameters
 
@@ -26,11 +26,11 @@ Document parameters as a table in SKILL.md:
 
 ### Parameter Types
 
-1. **Positional**: `<content>` — the main input
-2. **Named flags**: `--style dark` — configuration with a value
-3. **Boolean flags**: `--quick` — toggle behavior (no value)
-4. **Partial execution**: `--outline-only`, `--images-only` — run only part of the workflow
-5. **Selective redo**: `--regenerate 3` — redo a specific item without rerunning everything
+1. **Positional**: `<content>` -- the main input
+2. **Named flags**: `--style dark` -- configuration with a value
+3. **Boolean flags**: `--quick` -- toggle behavior (no value)
+4. **Partial execution**: `--outline-only`, `--images-only` -- run only part of the workflow
+5. **Selective redo**: `--regenerate 3` -- redo a specific item without rerunning everything
 
 ### Argument Hint
 
@@ -67,7 +67,7 @@ Otherwise: Execute full workflow.
 
 ### Independent Dimensions
 
-Design parameters to be independently combinable — any combination is valid:
+Design parameters to be independently combinable -- any combination is valid:
 
 ```bash
 /cover-image article.md --type conceptual --palette warm --rendering flat-vector
@@ -82,7 +82,7 @@ Each dimension (type, palette, rendering) is independent. The user can set any, 
 A `--quick` flag that skips confirmation gates is a common and useful pattern:
 
 ```markdown
-## Step 2: Confirm Options ⚠️ REQUIRED
+## Step 2: Confirm Options [WARN] REQUIRED
 
 Unless `--quick` was passed:
 - Present options to user

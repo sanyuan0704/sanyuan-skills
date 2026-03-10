@@ -6,7 +6,7 @@
 
 SKILL.md must stay under 500 lines. Everything beyond that goes into `references/`.
 
-Why? The context window is shared with system prompts, conversation history, user input, and other skill metadata. A bloated SKILL.md crowds out everything else.
+Why. The context window is shared with system prompts, conversation history, user input, and other skill metadata. A bloated SKILL.md crowds out everything else.
 
 **Bad:** A 2000-line SKILL.md with API docs, examples, and FAQ all in one file. The model reads all of it, and the truly important instructions get buried.
 
@@ -14,9 +14,9 @@ Why? The context window is shared with system prompts, conversation history, use
 
 ### Three-Level Loading
 
-1. **Metadata (name + description)** — Always in context (~100 words)
-2. **SKILL.md body** — Loaded when skill triggers (<500 lines)
-3. **Bundled resources** — Loaded on demand (unlimited)
+1. **Metadata (name + description)** -- Always in context (~100 words)
+2. **SKILL.md body** -- Loaded when skill triggers (<500 lines)
+3. **Bundled resources** -- Loaded on demand (unlimited)
 
 ### Load-on-Demand Pattern
 
@@ -28,7 +28,7 @@ In SKILL.md, reference files only at the step where they're needed:
 Load references/security-checklist.md and check each item against the code.
 ```
 
-The model reads security-checklist.md only when it reaches Step 3 — not at the beginning.
+The model reads security-checklist.md only when it reaches Step 3 -- not at the beginning.
 
 ### Progressive Disclosure Patterns
 
@@ -68,32 +68,32 @@ Claude reads redlining.md only when the user needs tracked changes.
 ### Organize by Domain, Not by Type
 
 ```
-# Bad — organized by type (everything in each folder gets loaded together)
+# Bad -- organized by type (everything in each folder gets loaded together)
 references/
-├── checklists/
-├── templates/
-└── examples/
+|-- checklists/
+|-- templates/
+\-- examples/
 
-# Good — organized by domain (only relevant domain gets loaded)
+# Good -- organized by domain (only relevant domain gets loaded)
 references/
-├── palettes/          # 9 color schemes, one per file
-├── renderings/        # 6 rendering styles, one per file
-├── dimensions/        # Style dimensions
-├── config/            # Configuration
-└── workflow/          # Workflow details
+|-- palettes/          # 9 color schemes, one per file
+|-- renderings/        # 6 rendering styles, one per file
+|-- dimensions/        # Style dimensions
+|-- config/            # Configuration
+\-- workflow/          # Workflow details
 ```
 
-When the user picks a specific palette, the model loads only that one file — not all 9.
+When the user picks a specific palette, the model loads only that one file -- not all 9.
 
 ### Multi-Framework Skills
 
 ```
 cloud-deploy/
-├── SKILL.md (workflow + provider selection)
-└── references/
-    ├── aws.md         # Loaded only when user chooses AWS
-    ├── gcp.md         # Loaded only when user chooses GCP
-    └── azure.md       # Loaded only when user chooses Azure
+|-- SKILL.md (workflow + provider selection)
+\-- references/
+    |-- aws.md         # Loaded only when user chooses AWS
+    |-- gcp.md         # Loaded only when user chooses GCP
+    \-- azure.md       # Loaded only when user chooses Azure
 ```
 
 ### Rules
@@ -107,13 +107,13 @@ cloud-deploy/
 
 ### When to Use Scripts
 
-Ask: "Is this operation deterministic and repeatable?" If yes → script it.
+Ask: "Is this operation deterministic and repeatable." If yes -> script it.
 
 Examples:
-- PDF rotation → `scripts/rotate_pdf.py`
-- Design database search → `scripts/search.py`
-- Image merging → `scripts/merge_images.py`
-- File format conversion → `scripts/convert.py`
+- PDF rotation -> `scripts/rotate_pdf.py`
+- Design database search -> `scripts/search.py`
+- Image merging -> `scripts/merge_images.py`
+- File format conversion -> `scripts/convert.py`
 
 ### Key Benefit: No Context Cost
 
@@ -151,7 +151,7 @@ Instead of an MCP Server with 20+ tool definitions in context, use:
 - A CLI tool with clear commands
 - A SKILL.md that teaches the model how to use it
 
-### Example — Browser Automation
+### Example -- Browser Automation
 
 ```bash
 agent-browser open https://example.com
@@ -171,7 +171,7 @@ Use `allowed-tools` in frontmatter to restrict what the skill can execute:
 allowed-tools: Bash(agent-browser:*)
 ```
 
-The skill can ONLY run commands starting with `agent-browser` — nothing else.
+The skill can ONLY run commands starting with `agent-browser` -- nothing else.
 
 ### When to Choose CLI + Skill over MCP
 
@@ -190,4 +190,4 @@ A skill should only contain files that directly support its functionality. Do NO
 - CHANGELOG.md
 - Any user-facing documentation
 
-The skill is for an AI agent to do the job — not for humans to read about it.
+The skill is for an AI agent to do the job -- not for humans to read about it.
