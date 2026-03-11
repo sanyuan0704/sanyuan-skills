@@ -239,52 +239,25 @@ This single question tests both higher-order function understanding (function re
 
 #### 3c. Respond to Answers
 
-| Answer Quality | Response |
-|----------------|----------|
-| Correct + good explanation | Acknowledge briefly, ask a harder follow-up |
-| Correct but shallow | "Good. Now can you explain *why* that's the case?" |
-| Partially correct | "You're on the right track with [part]. But think about [hint]..." |
-| Incorrect | "Interesting thinking. Let's step back — [simpler sub-question]" |
-| "I don't know" | "That's fine. Let me give you a smaller piece: [minimal hint]. Now, what do you think?" |
+- **Correct + explained**: Acknowledge briefly, ask a harder follow-up
+- **Correct but shallow**: Push for the "why"
+- **Partially correct**: Affirm the correct part, hint toward the gap
+- **Incorrect**: Step back to a simpler sub-question
+- **"I don't know"**: Give a minimal hint, re-ask
 
-**Hint escalation** (from least to most help):
-1. Rephrase the question
-2. Ask a simpler related question
-3. Give a concrete example to reason from
-4. Point to the specific principle at play
-5. Walk through a minimal worked example together (still asking them to fill in steps)
+**Hint escalation**: Rephrase → simpler sub-question → concrete example → name the principle → minimal worked example (learner fills in steps)
 
 #### 3d. Misconception Tracking
-
-**When the learner gives an incorrect answer, do NOT just note "wrong". Diagnose the underlying misconception.**
-
-A wrong answer reveals what the learner *thinks* is true. "Not knowing" and "believing something wrong" require completely different responses:
-- **Not knowing** → teach new knowledge
-- **Wrong mental model** → first dismantle the incorrect model, then build the correct one
 
 **On every incorrect or partially correct answer**:
 
 1. **Identify the misconception**: What wrong mental model would produce this answer?
-   - Ask yourself: "If the learner's answer were correct, what would the world look like?"
-   - Example: If they say "closures copy the variable's value" → they have a value-capture model instead of a reference-capture model
+2. **Record it** in session.md `## Misconceptions` table (concept, wrong belief, root cause, status: `active`/`resolved`)
+3. **Design a counter-example**: Construct a scenario where the wrong model produces an obviously incorrect prediction, then ask the learner to predict the outcome
+4. **Track resolution**: Mark `resolved` only when the learner both articulates WHY their old thinking was wrong AND correctly handles a new scenario that would have triggered the misconception
+5. **Watch for recurrence**: If a misconception resurfaces later, escalate — it wasn't truly resolved
 
-2. **Record it** in session.md `## Misconceptions` table:
-   - Concept it belongs to
-   - The specific wrong belief (quote or paraphrase the learner)
-   - Your analysis of the root cause
-   - Status: `active` (just identified) or `resolved` (learner has corrected it)
-
-3. **Design a counter-example**: Construct a scenario where the wrong mental model produces an obviously absurd or incorrect prediction, then ask the learner to predict the outcome.
-   - Example for "closures copy values": Show a closure that modifies a shared variable, ask what happens → the learner's model predicts the old value, but reality shows the new value. Contradiction forces model update.
-
-4. **Track resolution**: A misconception is `resolved` only when the learner:
-   - Explicitly articulates WHY their old thinking was wrong
-   - Correctly handles a new scenario that would have triggered the old misconception
-   - Both conditions must be met — just getting the right answer isn't enough
-
-5. **Watch for recurring patterns**: If the same misconception resurfaces in a later concept, escalate — it wasn't truly resolved. Log it again with a note referencing the earlier instance.
-
-**Never directly tell the learner "that's a misconception."** Instead, construct the counter-example and let them discover the contradiction themselves. This is harder but produces far more durable learning.
+**Never tell the learner "that's a misconception."** Construct the counter-example and let them discover the contradiction themselves.
 
 #### 3e. Visual Aids (Use Liberally)
 
@@ -458,21 +431,10 @@ When `--resume` or user chooses to resume:
 3. Parse concept map status, misconceptions, session log
 
 4. **Spaced repetition review** (BEFORE continuing new content):
-
-   Check all `mastered` concepts for review eligibility:
-   ```
-   For each mastered concept:
-     days_since_review = today - last_reviewed
-     if days_since_review >= review_interval:
-       → Add to review queue
-   ```
-
-   If review queue is non-empty:
-   - Tell the learner: "Before we continue, let's do a quick check on some things you learned before."
-   - For each concept in the review queue, ask **1 question** (not a full mastery check — just a quick recall/application test)
-   - **If correct**: Double the review interval (1d → 2d → 4d → 8d → 16d → 32d, capped at 32d). Update `Last Reviewed` to today.
-   - **If incorrect**: Reset review interval to `1d`. Check if it reveals a known misconception resurfacing. Mark concept status back to `in-progress` if the learner clearly can't recall the core idea.
-   - Keep the review quick — max 5 concepts per session, prioritize the most overdue ones.
+   - Queue mastered concepts where `days_since_review >= review_interval`
+   - Ask 1 quick recall question per concept (max 5 per session, most overdue first)
+   - **Correct**: Double interval (1d → 2d → 4d → ... → 32d cap), update `Last Reviewed`
+   - **Incorrect**: Reset interval to 1d, check for resurfacing misconceptions, mark `in-progress` if core recall lost
 
 5. Brief recap: "Last time you mastered [concepts]. You were working on [current concept]."
 6. Check for unresolved misconceptions from the previous session — if any, address them before continuing
