@@ -24,9 +24,9 @@
 - [ ] Critical errors trigger alerts/monitoring
 
 ### Questions to Ask
-- "What happens when this operation fails?"
-- "Will the caller know something went wrong?"
-- "Is there enough context to debug this error?"
+- "What happens when this operation fails."
+- "Will the caller know something went wrong."
+- "Is there enough context to debug this error."
 
 ---
 
@@ -45,10 +45,10 @@
   ```javascript
   // Bad: N+1
   for (const id of ids) {
-    const user = await db.query(`SELECT * FROM users WHERE id = ?`, id)
+    const user = await db.query(`SELECT * FROM users WHERE id = .`, id)
   }
   // Good: Batch
-  const users = await db.query(`SELECT * FROM users WHERE id IN (?)`, ids)
+  const users = await db.query(`SELECT * FROM users WHERE id IN (.)`, ids)
   ```
 - **Missing indexes**: Queries on unindexed columns
 - **Over-fetching**: SELECT * when only few columns needed
@@ -70,10 +70,10 @@
 - **Loading large files entirely**: Use streaming instead
 
 ### Questions to Ask
-- "What's the time complexity of this operation?"
-- "How does this behave with 10x/100x data?"
-- "Is this result cacheable? Should it be?"
-- "Can this be batched instead of one-by-one?"
+- "What's the time complexity of this operation."
+- "How does this behave with 10x/100x data."
+- "Is this result cacheable. Should it be."
+- "Can this be batched instead of one-by-one."
 
 ---
 
@@ -83,7 +83,7 @@
 
 - **Missing null checks**: Accessing properties on potentially null objects
 - **Truthy/falsy confusion**: `if (value)` when `0` or `""` are valid
-- **Optional chaining overuse**: `a?.b?.c?.d` hiding structural issues
+- **Optional chaining overuse**: `a..b..c..d` hiding structural issues
 - **Null vs undefined inconsistency**: Mixed usage without clear convention
 
 ### Empty Collections
@@ -124,7 +124,7 @@ if (value) { ... }  // fails for 0, "", false
 ```
 
 ### Questions to Ask
-- "What if this is null/undefined?"
-- "What if this collection is empty?"
-- "What's the valid range for this number?"
-- "What happens at the boundaries (0, -1, MAX_INT)?"
+- "What if this is null/undefined."
+- "What if this collection is empty."
+- "What's the valid range for this number."
+- "What happens at the boundaries (0, -1, MAX_INT)."

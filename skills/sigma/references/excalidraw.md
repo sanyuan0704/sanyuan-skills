@@ -6,7 +6,7 @@ Create elegant Excalidraw diagrams as HTML files with browser preview.
 
 1. Plan node positions to avoid line intersections
 2. Use consistent flow direction (left-to-right OR top-to-bottom)
-3. Design element layout — positions, sizes, colors for visual harmony
+3. Design element layout -- positions, sizes, colors for visual harmony
 4. Generate HTML file with elements
 5. Open in browser: `open <path>.html`
 
@@ -49,7 +49,7 @@ Write an HTML file replacing the `elementsData` array with designed elements:
     <script type="module">
       import React from "https://esm.sh/react@19.0.0";
       import { createRoot } from "https://esm.sh/react-dom@19.0.0/client";
-      import * as ExcalidrawLib from "https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/dev/index.js?external=react,react-dom";
+      import * as ExcalidrawLib from "https://esm.sh/@excalidraw/excalidraw@0.18.0/dist/dev/index.js.external=react,react-dom";
 
       const { Excalidraw, convertToExcalidrawElements } = ExcalidrawLib;
 
@@ -121,7 +121,7 @@ All elements share base properties:
 ```javascript
 { type: "text", x: 100, y: 100, text: "Hello World", fontSize: 20, width: 160, fontFamily: 1, textAlign: "center" }
 ```
-- **`width`: REQUIRED** — `width = text.length * fontSize * 0.6`
+- **`width`: REQUIRED** -- `width = text.length * fontSize * 0.6`
 - `fontSize`: 16 (small), 20 (medium), 28 (large), 36 (extra large)
 - `fontFamily`: 1 (hand-drawn), 2 (normal), 3 (code)
 - `textAlign`: "left" | "center" | "right"

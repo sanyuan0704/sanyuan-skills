@@ -50,14 +50,14 @@ The skill will automatically review your current git changes.
 
 ```
 code-review-expert/
-├── SKILL.md                 # Main skill definition
-├── agents/
-│   └── agent.yaml           # Agent interface config
-└── references/
-    ├── solid-checklist.md   # SOLID smell prompts
-    ├── security-checklist.md    # Security & reliability
-    ├── code-quality-checklist.md # Error, perf, boundaries
-    └── removal-plan.md      # Deletion planning template
+|-- SKILL.md                 # Main skill definition
+|-- agents/
+|   \-- agent.yaml           # Agent interface config
+\-- references/
+    |-- solid-checklist.md   # SOLID smell prompts
+    |-- security-checklist.md    # Security & reliability
+    |-- code-quality-checklist.md # Error, perf, boundaries
+    \-- removal-plan.md      # Deletion planning template
 ```
 
 ## References

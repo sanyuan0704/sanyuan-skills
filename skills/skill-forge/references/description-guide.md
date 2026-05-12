@@ -10,14 +10,14 @@ Two things description controls:
 
 ## The Keyword Bombing Technique
 
-List every possible trigger scenario — actions, objects, synonyms, and natural language phrases the user would literally say.
+List every possible trigger scenario -- actions, objects, synonyms, and natural language phrases the user would literally say.
 
 ### Four Dimensions of a Great Description
 
-1. **Core capability** — what it does (first sentence)
-2. **Action verbs** — what users ask to do
-3. **Object nouns** — what users mention
-4. **Natural phrases** — what users would literally type
+1. **Core capability** -- what it does (first sentence)
+2. **Action verbs** -- what users ask to do
+3. **Object nouns** -- what users mention
+4. **Natural phrases** -- what users would literally type
 
 ### Excellent Examples
 
@@ -32,7 +32,7 @@ dashboard, admin panel, e-commerce, SaaS, portfolio, blog, mobile app.
 Styles: glassmorphism, claymorphism, minimalism, brutalism..."
 ```
 
-This is a "trigger keyword net" — no matter what the user says about UI, it hits.
+This is a "trigger keyword net" -- no matter what the user says about UI, it hits.
 
 **excalidraw-artist:**
 ```yaml
@@ -49,21 +49,21 @@ Explicitly lists trigger keywords in natural language.
 ### Bad vs Good
 
 ```yaml
-# Bad — too vague, won't trigger reliably
-description: "代码审查工具"
+# Bad -- too vague, won't trigger reliably
+description: "Code review tool"
 
-# Good — covers natural language triggers
-description: "代码审查与质量分析。当用户说'帮我 review'、'检查代码'、
-'审查 PR'、'看看这段代码有没有问题'时使用。支持 Python、JavaScript、
-TypeScript、Go、Rust。Actions: review, check, audit, inspect, analyze
+# Good -- covers natural language triggers
+description: "Code review and quality analysis. Use when the user says 'help me review', 'check this code',
+'review this PR', 'see if this code has issues'. Supports Python, JavaScript,
+TypeScript, Go, Rust. Actions: review, check, audit, inspect, analyze
 code quality, find bugs, security review."
 ```
 
 ```yaml
-# Bad — generic
+# Bad -- generic
 description: "Helps create presentations"
 
-# Good — keyword-rich
+# Good -- keyword-rich
 description: "Generate professional slide decks from content. Creates
 outlines with style instructions, then generates individual slide images.
 Use when user asks to 'create slides', 'make a presentation', 'generate
@@ -83,4 +83,4 @@ a presentation'."
 
 ## Key Rule
 
-NEVER put "When to Use This Skill" in the SKILL.md body. The body only helps AFTER triggering — which is too late. All trigger information belongs in the `description` field.
+NEVER put "When to Use This Skill" in the SKILL.md body. The body only helps AFTER triggering -- which is too late. All trigger information belongs in the `description` field.

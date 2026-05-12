@@ -37,7 +37,7 @@ When structure matters but content varies:
 
 Show input/output pairs to demonstrate expected style and detail level. Examples are more effective than verbose explanations.
 
-### Example — Commit Messages
+### Example -- Commit Messages
 
 ```markdown
 ## Commit Message Style
@@ -49,7 +49,7 @@ Input: Refactored the user service to use dependency injection
 Output: `refactor: use dependency injection in user service`
 ```
 
-### Example — Code Review Comments
+### Example -- Code Review Comments
 
 ```markdown
 ## Comment Style
@@ -99,7 +99,7 @@ This prevents the model from treating all issues as equally important. A critica
 
 ### Key Rule
 
-Every checklist item must be **specific and verifiable** — not subjective.
+Every checklist item must be **specific and verifiable** -- not subjective.
 
 ```markdown
 # Bad

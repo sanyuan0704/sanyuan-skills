@@ -22,9 +22,21 @@ Perform a structured review of the current git changes with focus on SOLID, arch
 
 ### 1) Preflight context
 
+- Load `references/project-brain.md` to identify project-specific constraints that override or refine generic best practices.
 - Use `git status -sb`, `git diff --stat`, and `git diff` to scope changes.
-- If needed, use `rg` or `grep` to find related modules, usages, and contracts.
+- **Language Detection**: Identify the primary languages in the diff. Explicitly recall and apply common "footguns" and idioms for those languages (e.g., Python's mutable defaults, JS event loop blocking, Go's goroutine leaks).
+- **Impact Analysis (Low-Token Strategy)**:
+  - If an exported function, method, or type signature has changed:
+    1. Run `rg "nameOfIdentifier" --stats` to see how many times it's used.
+    2. If the count is low (<10), run `rg -C 2 "nameOfIdentifier"` to view the call sites directly in the terminal output.
+    3. If the count is high, only check the most critical files based on the project structure (e.g., those in `routes/`, `controllers/`, or `main`).
+  - **Do not read the whole file** unless the logic at the call site is too complex to understand from the 2-line context.
 - Identify entry points, ownership boundaries, and critical paths (auth, payments, data writes, network).
+- **Dependency Discovery (Ripple Effect)**:
+  - Enumerate any changed public contracts: exported functions, return types, DTOs, events, env var names, feature flags, and database schema/migrations.
+  - For each contract, map downstream consumers with `rg -n "ContractName"` (or related key strings) across the repo; skim unchanged files to confirm expectations still hold.
+  - Check caller assumptions: error shapes, nullability, timing/async behavior, and side effects (e.g., logging, metrics, transactions).
+  - Note high-risk boundaries (auth, payments, persistence, external APIs) where contract drift is most likely to break runtime behavior.
 
 **Edge cases:**
 - **No changes**: If `git diff` is empty, inform user and ask if they want to review staged changes or a specific commit range.
@@ -65,11 +77,15 @@ Perform a structured review of the current git changes with focus on SOLID, arch
 ### 5) Code quality scan
 
 - Load `references/code-quality-checklist.md` for coverage.
+- **Dynamic Language Heuristics**: Identify the language paradigm and apply specific "expert" checks:
+  - **Memory Management**: Check for manual management risks (C/C++/Zig/Rust) vs. GC pressures/leaks (Java/JS/Python).
+  - **Type Safety**: Flag "type-cheating" (TypeScript `any`, Python `Any`, Go `interface{}`) or unsafe type casting.
+  - **Concurrency Models**: Look for race conditions specific to the model (Threads/Locks, Goroutines/Channels, or JS Event Loop).
+  - **Infrastructure/DSL**: If reviewing SQL, YAML, or Terraform, focus on injection, schema-locking, or resource-leakage.
 - Check for:
-  - **Error handling**: swallowed exceptions, overly broad catch, missing error handling, async errors
-  - **Performance**: N+1 queries, CPU-intensive ops in hot paths, missing cache, unbounded memory
-  - **Boundary conditions**: null/undefined handling, empty collections, numeric boundaries, off-by-one
-- Flag issues that may cause silent failures or production incidents.
+  - **Error handling**: swallowed exceptions, overly broad catch, missing error handling, async errors.
+  - **Performance**: N+1 queries, CPU-intensive ops in hot paths, missing cache, unbounded memory.
+  - **Boundary conditions**: null/undefined handling, empty collections, numeric boundaries, off-by-one.
 
 ### 6) Output format
 
@@ -132,7 +148,7 @@ After presenting findings, ask user how to proceed:
 
 I found X issues (P0: _, P1: _, P2: _, P3: _).
 
-**How would you like to proceed?**
+**How would you like to proceed.**
 
 1. **Fix all** - I'll implement all suggested fixes
 2. **Fix P0/P1 only** - Address critical and high priority issues
