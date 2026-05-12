@@ -1,6 +1,6 @@
 ---
 name: code-review-expert
-description: "Expert code review of current git changes with a senior engineer lens. Detects SOLID violations, security risks, and proposes actionable improvements."
+description: "Expert code review of current git changes with a senior engineer lens. Detects SOLID violations, security risks, and proposes actionable improvements. Use when the user asks to review code, check changes, give PR feedback, review a pull request, audit a diff, inspect staged changes, or says 'review my code'. Triggers on: code review, PR review, pull request feedback, diff review, check my changes, review staged, audit code, security review."
 ---
 
 # Code Review Expert
@@ -11,12 +11,12 @@ Perform a structured review of the current git changes with focus on SOLID, arch
 
 ## Severity Levels
 
-| Level | Name | Description | Action |
-|-------|------|-------------|--------|
-| **P0** | Critical | Security vulnerability, data loss risk, correctness bug | Must block merge |
-| **P1** | High | Logic error, significant SOLID violation, performance regression | Should fix before merge |
-| **P2** | Medium | Code smell, maintainability concern, minor SOLID violation | Fix in this PR or create follow-up |
-| **P3** | Low | Style, naming, minor suggestion | Optional improvement |
+| Level | Description | Action |
+|-------|-------------|--------|
+| **P0** | Security vulnerability, data loss, correctness bug | Block merge |
+| **P1** | Logic error, major SOLID violation, perf regression | Fix before merge |
+| **P2** | Code smell, maintainability concern | Fix or follow-up |
+| **P3** | Style, naming, minor suggestion | Optional |
 
 ## Workflow
 
